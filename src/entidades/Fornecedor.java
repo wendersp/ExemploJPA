@@ -11,12 +11,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author wender
  */
 @Entity
+@Table(name = "fornecedor")
+@NamedQueries({
+    @NamedQuery(name = "Fornecedor.findByNome",
+            query = "SELECT f FROM Fornecedor f WHERE f.nome LIKE :nome ")    
+})
 public class Fornecedor implements Serializable {
 
     private static final long serialVersionUID = 1L;

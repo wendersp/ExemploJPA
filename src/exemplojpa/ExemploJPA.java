@@ -5,6 +5,9 @@
  */
 package exemplojpa;
 
+import entidades.Fornecedor;
+import modelo.dao.FornecedorDAO;
+
 /**
  *
  * @author wender
@@ -15,7 +18,17 @@ public class ExemploJPA {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Fornecedor fornecedor;
+        FornecedorDAO fornecedorDAO = new FornecedorDAO();
+//        fornecedor = fornDAO.novo();
+//        fornecedor.setNome("Fornecedor 1");
+//        fornecedorDAO.salvar(forn);
+        fornecedor = fornecedorDAO.pesquisar(1);
+        System.out.println("Fornecedor: " + fornecedor.getId() + " - " + fornecedor.getNome());
+        fornecedor.setNome("Disdribuidora São Luis");
+        fornecedorDAO.salvar(fornecedor);
+        
+        
     }
     
 }
