@@ -25,32 +25,41 @@ import javax.persistence.TemporalType;
  * @author wender
  */
 @Entity
-@Table(name = "fornecedor")
+@Table(name = "cliente")
 @NamedQueries({
-    @NamedQuery(name = "Fornecedor.findByNome",
-            query = "SELECT f FROM Fornecedor f WHERE f.nome LIKE :nome ")
+    @NamedQuery(name = "Cliente.findByNome", query = "SELECT cli FROM Cliente cli WHERE cli.nome LIKE :nome")
 })
-public class Fornecedor implements Serializable {
+public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "nome", length = 100)
+    @Column(name = "nome", length = 200)
     private String nome;
-    @Column(name = "cnpj", length = 18)
-    private String cnpj;
+    @Column(name = "cpf", length = 14)
+    private String cpf;
+    @Column(name = "rg", length = 15)
+    private String rg;
+    @Column(name = "data_nascimento")
+    @Temporal(TemporalType.DATE)
+    private Date dataNascimento;
     @ManyToOne
     @JoinColumn(columnDefinition = "cidade_id", referencedColumnName = "id")
     private Cidade cidade;
-
+    @Column(name = "logradouro", length = 255)
+    private String logradouro;
+    @Column(name = "bairro", length = 200)
+    private String bairro;
+    @Column(name = "cep", length = 10)
+    private String cep;
     @Column(name = "data_cadastro", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
     @Column(name = "data_alteracoa", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;
+    
 
     public Integer getId() {
         return id;
@@ -68,12 +77,28 @@ public class Fornecedor implements Serializable {
         this.nome = nome;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public Cidade getCidade() {
@@ -82,6 +107,30 @@ public class Fornecedor implements Serializable {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public Date getDataCadastro() {
@@ -99,8 +148,8 @@ public class Fornecedor implements Serializable {
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
     }
-
-   
+    
+    
 
     @Override
     public int hashCode() {
@@ -112,10 +161,10 @@ public class Fornecedor implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Fornecedor)) {
+        if (!(object instanceof Cliente)) {
             return false;
         }
-        Fornecedor other = (Fornecedor) object;
+        Cliente other = (Cliente) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +173,7 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Fornecedor[ id=" + id + " ]";
+        return "entidades.Cliente[ id=" + id + " ]";
     }
-
+    
 }

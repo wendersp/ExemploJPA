@@ -7,13 +7,12 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,32 +24,27 @@ import javax.persistence.TemporalType;
  * @author wender
  */
 @Entity
-@Table(name = "fornecedor")
+@Table(name = "estado")
 @NamedQueries({
-    @NamedQuery(name = "Fornecedor.findByNome",
-            query = "SELECT f FROM Fornecedor f WHERE f.nome LIKE :nome ")
+    @NamedQuery(name = "Estado.findByNome", query = "SELECT e FROM Estado e WHERE e.nome LIKE :nome")
 })
-public class Fornecedor implements Serializable {
+public class Estado implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "nome", length = 100)
+    @Column(name = "nome", length = 100)    
     private String nome;
-    @Column(name = "cnpj", length = 18)
-    private String cnpj;
-    @ManyToOne
-    @JoinColumn(columnDefinition = "cidade_id", referencedColumnName = "id")
-    private Cidade cidade;
-
+    @Column(name = "sigla", length = 2)    
+    private String sigla;    
     @Column(name = "data_cadastro", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
-    @Column(name = "data_alteracoa", insertable = false)
+    @Column(name = "data_alteracao", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;
+
 
     public Integer getId() {
         return id;
@@ -59,7 +53,8 @@ public class Fornecedor implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
+      
     public String getNome() {
         return nome;
     }
@@ -68,20 +63,12 @@ public class Fornecedor implements Serializable {
         this.nome = nome;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getSigla() {
+        return sigla;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 
     public Date getDataCadastro() {
@@ -100,23 +87,26 @@ public class Fornecedor implements Serializable {
         this.dataAlteracao = dataAlteracao;
     }
 
-   
-
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Fornecedor)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Fornecedor other = (Fornecedor) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Estado other = (Estado) obj;
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -124,7 +114,9 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Fornecedor[ id=" + id + " ]";
+        return "Estado{" + "id=" + id + '}';
     }
-
+    
+    
+    
 }

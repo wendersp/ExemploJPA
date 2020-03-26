@@ -25,26 +25,21 @@ import javax.persistence.TemporalType;
  * @author wender
  */
 @Entity
-@Table(name = "fornecedor")
+@Table(name = "cidade")
 @NamedQueries({
-    @NamedQuery(name = "Fornecedor.findByNome",
-            query = "SELECT f FROM Fornecedor f WHERE f.nome LIKE :nome ")
+    @NamedQuery(name = "Cidade.findByNome", query = "SELECT c FROM Cidade c WHERE c.nome LIKE :nome")
 })
-public class Fornecedor implements Serializable {
+public class Cidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(name = "nome", length = 100)
     private String nome;
-    @Column(name = "cnpj", length = 18)
-    private String cnpj;
     @ManyToOne
-    @JoinColumn(columnDefinition = "cidade_id", referencedColumnName = "id")
-    private Cidade cidade;
-
+    @JoinColumn(name = "estado_id", referencedColumnName = "id")
+    private Estado estado;
     @Column(name = "data_cadastro", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
@@ -68,20 +63,12 @@ public class Fornecedor implements Serializable {
         this.nome = nome;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public Date getDataCadastro() {
@@ -100,8 +87,6 @@ public class Fornecedor implements Serializable {
         this.dataAlteracao = dataAlteracao;
     }
 
-   
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -112,10 +97,10 @@ public class Fornecedor implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Fornecedor)) {
+        if (!(object instanceof Cidade)) {
             return false;
         }
-        Fornecedor other = (Fornecedor) object;
+        Cidade other = (Cidade) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +109,7 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Fornecedor[ id=" + id + " ]";
+        return "entidades.Cidade[ id=" + id + " ]";
     }
-
+    
 }
