@@ -43,7 +43,7 @@ public class EstadoDao {
         em.close();
     }
 
-    public Estado pesquisar(Integer id) {
+    public Estado pesquisar(Long id) {
         EntityManager em = ConexaoDB.getEntityManager();
         Estado estado = (Estado) em.find(Estado.class, id);
         return estado;

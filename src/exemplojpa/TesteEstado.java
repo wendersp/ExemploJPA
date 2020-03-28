@@ -31,14 +31,14 @@ public class TesteEstado {
     
     private void alterarEstado() {
         System.out.println("teste alteracao de um novo estado.");
-        estado = estadoDao.pesquisar(1);
+        estado = estadoDao.pesquisar(1l);
         imprimir();
         estado.setNome("Nome estado alterado");
         estado.setSigla("AT");
         estado.setDataAlteracao(new Date());
         estadoDao.salvar(estado);
         System.out.println("Estado alterado com sucesso.");
-        estado = estadoDao.pesquisar(1);
+        estado = estadoDao.pesquisar(1l);
         imprimir();         
     }
     
@@ -53,7 +53,7 @@ public class TesteEstado {
     
     private void apagar() {
         System.out.println("teste apagar de um novo estado.");
-        estado = estadoDao.pesquisar(1);
+        estado = estadoDao.pesquisar(1l);
         estadoDao.excluir(estado);
         System.out.println("Estado apagado com sucesso.");
     }
